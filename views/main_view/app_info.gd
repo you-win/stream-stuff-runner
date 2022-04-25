@@ -1,14 +1,23 @@
 extends HBoxContainer
 
 onready var check_box := $CheckBox as CheckBox
-onready var base_app_info := $BaseAppInfo
+onready var base_app_info := $VBoxContainer/BaseAppInfo
+
+const RUNNING_COLOR := Color.green
+const STOPPED_COLOR := Color.red
+onready var running_icon := $VBoxContainer/Running/RunningIcon
+const RUNNING_TEXT := "Running"
+const STOPPED_TEXT := "Stopped"
+onready var running_label := $VBoxContainer/Running/RunningLabel
 
 ###############################################################################
 # Builtin functions                                                           #
 ###############################################################################
 
 func _ready() -> void:
-	$BaseAppInfo/Delete.connect("pressed", self, "_on_delete")
+	$VBoxContainer/BaseAppInfo/Delete.connect("pressed", self, "_on_delete")
+	
+	set_running(false)
 
 func _to_string() -> String:
 	return JSON.print({
@@ -52,6 +61,14 @@ func set_checked(value: bool) -> void:
 
 func is_checked() -> bool:
 	return check_box.pressed
+
+func set_running(is_running: bool) -> void:
+	if is_running:
+		running_icon.modulate = RUNNING_COLOR
+		running_label.text = RUNNING_TEXT
+	else:
+		running_icon.modulate = STOPPED_COLOR
+		running_label.text = STOPPED_TEXT
 
 func get_data() -> AppConfig:
 	return base_app_info.get_data()

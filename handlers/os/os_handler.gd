@@ -1,8 +1,8 @@
-class_name AppHandler
-extends AbstractHandler
+class_name OSHandler
+extends AbstractOSHandler
 
 const STATE := {
-	"pids": {}
+	"handler": null # AbstractOSHandler
 }
 
 ###############################################################################
@@ -24,41 +24,14 @@ const STATE := {
 static func init(args: Dictionary = {}) -> void:
 	_inner_init(STATE, args)
 
-static func start(config: AppConfig) -> int:
-	var pid: int = OS.execute(config.path, config.args, false)
-	if pid < 0:
-		printerr("Unable to start %s" % config.to_string())
-		return ERR_CANT_CREATE
+static func find_process(search_type: String, value: String) -> Array:
+	return STATE.handler.find_process(search_type, value)
 
-	STATE.pids[config.name] = pid
+static func find_processes_by_name(process_name: String) -> Array:
+	return STATE.handler.find_processes_by_name(process_name)
 
-	return OK
+static func pid_exists(pid: int) -> bool:
+	return STATE.handler.pid_exists(pid)
 
-static func stop(config: AppConfig) -> int:
-	var found: bool = STATE.pids.has(config.name)
-	
-	if not found:
-		found = OSHandler.find_processes_by_name(config.name).size() == 1
-	
-	if not found:
-		printerr("Process not running")
-		return ERR_DOES_NOT_EXIST
-
-	if OS.kill(STATE.pids[config.name]) != OK:
-		printerr("Unable to kill %s - %d" % [config.name, STATE.pids[config.name]])
-		return ERR_DOES_NOT_EXIST
-
-	STATE.pids.erase(config.name)
-	
-	return OK
-
-static func stop_all() -> void:
-	var killed_pids := [] # pid name: String
-	for key in STATE.pids.keys():
-		if OS.kill(STATE.pids[key]) != OK:
-			printerr("Unable to kill %s - %d" % [key, STATE.pids[key]])
-			continue
-		killed_pids.append(key)
-
-	for pid_name in killed_pids:
-		STATE.pids.erase(pid_name)
+static func process_exists(process_name: String) -> bool:
+	return STATE.handler.process_exists(process_name)

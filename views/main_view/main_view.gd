@@ -33,13 +33,27 @@ func _ready() -> void:
 ###############################################################################
 
 func _on_start_all() -> void:
+	print("Starting all apps")
+	
 	for c in registered_apps.get_children():
 		var config: AppConfig = c.get_data()
 		if AppHandler.start(config) != OK:
 			printerr("Unable to start %s" % config.name)
+			return
+		c.set_running(true)
+		print("Started %s" % config.name)
+	
+	print("Finished starting all apps")
 
 func _on_stop_all() -> void:
+	print("Stopping all apps")
+	
 	AppHandler.stop_all()
+	for c in registered_apps.get_children():
+		c.set_running(false)
+		print("Assuming %s is stopped" % c.get_data().name)
+	
+	print("Finished stopping all apps")
 
 func _on_select_all() -> void:
 	for c in registered_apps.get_children():
@@ -50,14 +64,29 @@ func _on_deselect_all() -> void:
 		c.set_checked(false)
 
 func _on_start_selected() -> void:
-	for config in _get_selected_apps():
+	print("Starting selected apps")
+	
+	for c in _get_selected_apps():
+		var config: AppConfig = c.get_data()
 		if AppHandler.start(config) != OK:
 			printerr("Unable to start %s" % config.name)
+			return
+		c.set_running(true)
+		print("Started %s" % config.name)
+	
+	print("Finished starting selected apps")
 
 func _on_stop_selected() -> void:
-	for config in _get_selected_apps():
+	print("Stopping selected apps")
+	
+	for c in _get_selected_apps():
+		var config: AppConfig = c.get_data()
 		if AppHandler.stop(config) != OK:
-			printerr("Unable to stop %s" % config.name)
+			printerr("Assuming %s is already stopped" % config.name)
+		c.set_running(false)
+		print("Stopped %s" % config.name)
+	
+	print("Finished stopping selected apps")
 
 func _on_register_new() -> void:
 	var popup := BasePopup.new("Register New App", RegisterNewApp)
@@ -83,13 +112,13 @@ func _get_selected_apps() -> Array:
 	Gets all apps that are currently selected
 
 	Returns:
-		Array - AppConfig of all selected apps
+		Array - All selected apps
 	"""
 	var r := []
 	
 	for c in registered_apps.get_children():
 		if c.is_checked():
-			r.append(c.get_data())
+			r.append(c)
 	
 	return r
 

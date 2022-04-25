@@ -34,12 +34,16 @@ onready var background = get_node(background_path) as ColorRect
 ###############################################################################
 
 func _init() -> void:
-	OS.center_window()
+	OSHandler.init({
+		"handler": WindowsHandler if OS.get_name().to_lower() == "windows" else LinuxHandler
+	})
 	
 	ConfigHandler.init({
 		"main": self
 	})
 	ConfigHandler.load()
+	
+	OS.center_window()
 
 func _ready() -> void:
 	LogHandler.init({

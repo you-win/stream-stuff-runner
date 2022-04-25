@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://handlers/abstract_handler.gd"
 }, {
+"base": "AbstractHandler",
+"class": "AbstractOSHandler",
+"language": "GDScript",
+"path": "res://handlers/os/abstract_os_handler.gd"
+}, {
 "base": "ScrollContainer",
 "class": "AbstractPopupScreen",
 "language": "GDScript",
@@ -54,10 +59,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://handlers/lambda_handler.gd"
 }, {
+"base": "AbstractOSHandler",
+"class": "LinuxHandler",
+"language": "GDScript",
+"path": "res://handlers/os/linux_handler.gd"
+}, {
 "base": "AbstractHandler",
 "class": "LogHandler",
 "language": "GDScript",
 "path": "res://handlers/log_handler.gd"
+}, {
+"base": "AbstractOSHandler",
+"class": "OSHandler",
+"language": "GDScript",
+"path": "res://handlers/os/os_handler.gd"
 }, {
 "base": "AbstractHandler",
 "class": "PopupHandler",
@@ -73,9 +88,15 @@ _global_script_classes=[ {
 "class": "WindowHandler",
 "language": "GDScript",
 "path": "res://handlers/window_handler.gd"
+}, {
+"base": "AbstractOSHandler",
+"class": "WindowsHandler",
+"language": "GDScript",
+"path": "res://handlers/os/windows_handler.gd"
 } ]
 _global_script_class_icons={
 "AbstractHandler": "",
+"AbstractOSHandler": "",
 "AbstractPopupScreen": "",
 "AppConfig": "",
 "AppHandler": "",
@@ -84,10 +105,13 @@ _global_script_class_icons={
 "ConfigHandler": "",
 "GlobalConstants": "",
 "LambdaHandler": "",
+"LinuxHandler": "",
 "LogHandler": "",
+"OSHandler": "",
 "PopupHandler": "",
 "ViewHandler": "",
-"WindowHandler": ""
+"WindowHandler": "",
+"WindowsHandler": ""
 }
 
 [application]
