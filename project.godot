@@ -1,0 +1,118 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "AbstractHandler",
+"language": "GDScript",
+"path": "res://handlers/abstract_handler.gd"
+}, {
+"base": "ScrollContainer",
+"class": "AbstractPopupScreen",
+"language": "GDScript",
+"path": "res://popups/abstract_popup_screen.gd"
+}, {
+"base": "Reference",
+"class": "AppConfig",
+"language": "GDScript",
+"path": "res://model/app_config.gd"
+}, {
+"base": "AbstractHandler",
+"class": "AppHandler",
+"language": "GDScript",
+"path": "res://handlers/app_handler.gd"
+}, {
+"base": "WindowDialog",
+"class": "BasePopup",
+"language": "GDScript",
+"path": "res://popups/base_popup.gd"
+}, {
+"base": "Reference",
+"class": "ConfigData",
+"language": "GDScript",
+"path": "res://model/config_data.gd"
+}, {
+"base": "AbstractHandler",
+"class": "ConfigHandler",
+"language": "GDScript",
+"path": "res://handlers/config_handler.gd"
+}, {
+"base": "Reference",
+"class": "GlobalConstants",
+"language": "GDScript",
+"path": "res://model/global_constants.gd"
+}, {
+"base": "AbstractHandler",
+"class": "LambdaHandler",
+"language": "GDScript",
+"path": "res://handlers/lambda_handler.gd"
+}, {
+"base": "AbstractHandler",
+"class": "LogHandler",
+"language": "GDScript",
+"path": "res://handlers/log_handler.gd"
+}, {
+"base": "AbstractHandler",
+"class": "PopupHandler",
+"language": "GDScript",
+"path": "res://handlers/popup_handler.gd"
+}, {
+"base": "AbstractHandler",
+"class": "ViewHandler",
+"language": "GDScript",
+"path": "res://handlers/view_handler.gd"
+}, {
+"base": "AbstractHandler",
+"class": "WindowHandler",
+"language": "GDScript",
+"path": "res://handlers/window_handler.gd"
+} ]
+_global_script_class_icons={
+"AbstractHandler": "",
+"AbstractPopupScreen": "",
+"AppConfig": "",
+"AppHandler": "",
+"BasePopup": "",
+"ConfigData": "",
+"ConfigHandler": "",
+"GlobalConstants": "",
+"LambdaHandler": "",
+"LogHandler": "",
+"PopupHandler": "",
+"ViewHandler": "",
+"WindowHandler": ""
+}
+
+[application]
+
+config/name="Stream Stuff Runner"
+run/main_scene="res://main.tscn"
+config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
+
+[display]
+
+window/size/width=1600
+window/size/height=900
+window/size/borderless=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
