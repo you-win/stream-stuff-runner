@@ -25,6 +25,14 @@ static func find_processes_by_name(process_name: String) -> Array:
 	printerr("find_processes_by_name not yet implemented")
 	return []
 
+static func process_dict_name(dict: Dictionary) -> String:
+	printerr("process_dict_name not yet implemented")
+	return ""
+
+static func process_dict_pid(dict: Dictionary) -> String:
+	printerr("process_dict_pid not yet implemented")
+	return ""
+
 static func pid_exists(pid: int) -> bool:
 	printerr("pid_exists not yet implemented")
 	return false

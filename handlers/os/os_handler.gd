@@ -30,6 +30,12 @@ static func find_process(search_type: String, value: String) -> Array:
 static func find_processes_by_name(process_name: String) -> Array:
 	return STATE.handler.find_processes_by_name(process_name)
 
+static func process_dict_name(dict: Dictionary) -> String:
+	return STATE.handler.process_dict_name(dict)
+
+static func process_dict_pid(dict: Dictionary) -> String:
+	return STATE.handler.process_dict_pid(dict)
+
 static func pid_exists(pid: int) -> bool:
 	return STATE.handler.pid_exists(pid)
 

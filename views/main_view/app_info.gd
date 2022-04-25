@@ -1,21 +1,22 @@
-extends HBoxContainer
+extends PanelContainer
 
-onready var check_box := $CheckBox as CheckBox
-onready var base_app_info := $VBoxContainer/BaseAppInfo
+onready var check_box := $HBoxContainer/CheckBox as CheckBox
+onready var base_app_info := $HBoxContainer/VBoxContainer/BaseAppInfo
 
 const RUNNING_COLOR := Color.green
 const STOPPED_COLOR := Color.red
-onready var running_icon := $VBoxContainer/Running/RunningIcon
+onready var running_icon := $HBoxContainer/VBoxContainer/Running/RunningIcon
 const RUNNING_TEXT := "Running"
 const STOPPED_TEXT := "Stopped"
-onready var running_label := $VBoxContainer/Running/RunningLabel
+onready var running_label := $HBoxContainer/VBoxContainer/Running/RunningLabel
 
 ###############################################################################
 # Builtin functions                                                           #
 ###############################################################################
 
 func _ready() -> void:
-	$VBoxContainer/BaseAppInfo/Delete.connect("pressed", self, "_on_delete")
+	$HBoxContainer/VBoxContainer/BaseAppInfo/Delete.connect("pressed", self, "_on_delete")
+	base_app_info.connect("modified", self, "_on_bap_modified")
 	
 	set_running(false)
 
@@ -47,6 +48,23 @@ func _on_delete() -> void:
 	ConfigHandler.save()
 	
 	queue_free()
+
+func _on_bap_modified() -> void:
+	var data := get_data()
+	var app_configs: Array = ConfigHandler.data().app_configs
+	
+	var found := false
+	for i in app_configs:
+		if i.name == data.name:
+			i = data
+			found = true
+			break
+	
+	if not found:
+		printerr("Unable to modify %s, app config not found. Creating config instead")
+		app_configs.append(data)
+	
+	ConfigHandler.save()
 
 ###############################################################################
 # Private functions                                                           #

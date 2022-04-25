@@ -22,8 +22,6 @@ func _ready() -> void:
 	stop_selected.connect("pressed", self, "_on_stop_selected")
 	
 	$ScrollContainer/VBoxContainer/Actions/RegisterNew.connect("pressed", self, "_on_register_new")
-	
-	print(ConfigHandler.data())
 
 	for arg in ConfigHandler.data().app_configs:
 		_add_app_info(arg)

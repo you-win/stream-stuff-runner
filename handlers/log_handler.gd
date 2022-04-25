@@ -39,6 +39,8 @@ static func init(args: Dictionary = {}) -> void:
 	STATE.log_view.add_keyword_color("ERROR", Color.red)
 
 	Redirect.connect("print_line", STATE.self, "_on_redirect")
+	
+	Engine.get_main_loop().root.connect("tree_exiting", LambdaHandler, "clear_handler_state", [STATE])
 
 static func show(text: String) -> void:
 	STATE.log_view.text = "%s%s\n" % [STATE.log_view.text, text]

@@ -37,8 +37,12 @@ static func start(config: AppConfig) -> int:
 static func stop(config: AppConfig) -> int:
 	var found: bool = STATE.pids.has(config.name)
 	
+	# If we somehow lost the pid, then look for the running application anyways
 	if not found:
-		found = OSHandler.find_processes_by_name(config.name).size() == 1
+		var processes: Array = OSHandler.find_processes_by_name(config.name)
+		found = processes.size() == 1
+		if found:
+			STATE.pids[config.name] = OSHandler.process_dict_pid(processes[0])
 	
 	if not found:
 		printerr("Process not running")

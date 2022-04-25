@@ -49,7 +49,7 @@ func _ready() -> void:
 	LogHandler.init({
 		"self": LogHandler,
 		"status": get_node(status_path),
-		"log_view": get_node(logs_path)
+		"log_view": get_node(logs_path).logs
 	})
 	
 	_setup_window()
@@ -72,6 +72,10 @@ func _ready() -> void:
 	#endregion
 	
 	print("%s started successfully" % ProjectSettings.get_setting("application/config/name"))
+
+func _exit_tree() -> void:
+	ConfigHandler.save_instant()
+	print("Exiting. おやすみ。")
 
 func add_child(node: Node, legible_unique_name: bool = false) -> void:
 	background.add_child(node, legible_unique_name)

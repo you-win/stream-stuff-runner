@@ -1,7 +1,12 @@
 class_name WindowsHandler
 extends AbstractOSHandler
 
-const TASKLIST_COLUMNS := ["Image Name","PID","Session Name","Session#","Mem Usage"]
+const IMAGE_NAME := "Image Name"
+const PID := "PID"
+const SESSION_NAME := "Session Name"
+const SESSION_NUMBER := "Session#"
+const MEM_USAGE := "Mem Usage"
+const TASKLIST_COLUMNS := [IMAGE_NAME, PID, SESSION_NAME, SESSION_NUMBER, MEM_USAGE]
 
 const STATE := {}
 
@@ -95,7 +100,16 @@ static func find_process(search_type: String, value: String) -> Array:
 	return r
 
 static func find_processes_by_name(process_name: String) -> Array:
+	"""
+	Wrapper for find_process to find a process by name
+	"""
 	return find_process("imagename", process_name)
+
+static func process_dict_name(dict: Dictionary) -> String:
+	return dict[IMAGE_NAME]
+
+static func process_dict_pid(dict: Dictionary) -> String:
+	return dict[PID]
 
 static func pid_exists(pid: int) -> bool:
 	"""
