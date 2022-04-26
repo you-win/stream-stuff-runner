@@ -42,6 +42,8 @@ func _on_load() -> void:
 
 	popup.connect("file_selected", self, "_on_popup_file_selected")
 	_set_as_modifiable(popup, "file_selected")
+	
+	popup.current_path = ConfigHandler.data().default_search_path
 
 	add_child(popup)
 	popup.popup_centered_ratio()
@@ -65,7 +67,13 @@ func _on_text_entered(text: String) -> void:
 func _on_add_arg() -> void:
 	_on_text_entered(arg_input.text)
 
-func _on_modified() -> void:
+func _on_modified(_null = null) -> void:
+	"""
+	Callback for emitting the `modified` signal
+	
+	Params:
+		_null - Required for some signals as they emit args
+	"""
 	emit_signal("modified")
 
 ###############################################################################

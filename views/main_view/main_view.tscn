@@ -71,12 +71,14 @@ text = "Deselect all"
 margin_left = 166.0
 margin_right = 266.0
 margin_bottom = 20.0
+disabled = true
 text = "Start selected"
 
 [node name="StopSelected" type="Button" parent="ScrollContainer/VBoxContainer/Actions"]
 margin_left = 270.0
 margin_right = 369.0
 margin_bottom = 20.0
+disabled = true
 text = "Stop selected"
 
 [node name="RegisterNew" type="Button" parent="ScrollContainer/VBoxContainer/Actions"]
@@ -90,3 +92,5 @@ text = "Register new app"
 margin_top = 50.0
 margin_right = 1600.0
 margin_bottom = 50.0
+
+[node name="AppStatusPoller" type="Timer" parent="."]

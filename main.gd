@@ -27,7 +27,7 @@ export var status_path: NodePath
 
 const TREE_COL: int = 0
 
-onready var background = get_node(background_path) as ColorRect
+onready var background := get_node(background_path) as ColorRect
 
 ###############################################################################
 # Builtin functions                                                           #
@@ -43,6 +43,7 @@ func _init() -> void:
 	})
 	ConfigHandler.load()
 	
+	OS.window_size = Vector2(ConfigHandler.data().window_size_x, ConfigHandler.data().window_size_y)
 	OS.center_window()
 
 func _ready() -> void:
@@ -75,6 +76,7 @@ func _ready() -> void:
 
 func _exit_tree() -> void:
 	ConfigHandler.save_instant()
+	AppHandler.stop_all()
 	print("Exiting. おやすみ。")
 
 func add_child(node: Node, legible_unique_name: bool = false) -> void:

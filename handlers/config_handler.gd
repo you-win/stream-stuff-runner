@@ -55,11 +55,11 @@ static func load() -> int:
 	return OK
 
 static func save() -> int:
-	print("Starting to save config")
-
 	if STATE.debouncing:
 		return
 	STATE.debouncing = true
+	
+	print("Starting to save config")
 	
 	yield(STATE.main.get_tree().create_timer(DEBOUCE_TIME), "timeout")
 	STATE.debouncing = false

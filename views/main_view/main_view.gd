@@ -8,6 +8,8 @@ onready var stop_selected := $ScrollContainer/VBoxContainer/Actions/StopSelected
 
 onready var registered_apps := $ScrollContainer/VBoxContainer/RegisteredApps as VBoxContainer
 
+var _checked_boxes: int = 0
+
 ###############################################################################
 # Builtin functions                                                           #
 ###############################################################################
@@ -25,6 +27,11 @@ func _ready() -> void:
 
 	for arg in ConfigHandler.data().app_configs:
 		_add_app_info(arg)
+	
+	var poller := $AppStatusPoller as Timer
+	poller.wait_time = ConfigHandler.data().app_status_poll_time
+	poller.connect("timeout", self, "_on_app_status_poll")
+	poller.start()
 
 ###############################################################################
 # Connections                                                                 #
@@ -101,6 +108,36 @@ func _on_popup_confirmed(val: AppConfig) -> void:
 	ConfigHandler.data().app_configs.append(val)
 	ConfigHandler.save()
 
+func _on_check_box_toggled(state: bool) -> void:
+	_checked_boxes += 1 if state else -1
+	
+	start_selected.disabled = false if _checked_boxes > 0 else true
+	stop_selected.disabled = false if _checked_boxes > 0 else true
+
+func _on_app_status_poll() -> void:
+	print("Polling app status")
+	
+	var pids: Dictionary = AppHandler.STATE.pids
+	var non_existent_pids := {}
+	for pid_key in pids.keys():
+		if not OSHandler.pid_exists(pids[pid_key]):
+			printerr("%s is no longer running but it was expected to still be alive" % pid_key)
+			non_existent_pids[pid_key] = (pids[pid_key])
+	
+	for key in non_existent_pids.keys():
+		AppHandler.STATE.pids.erase(non_existent_pids[key])
+		
+		var found := false
+		for c in registered_apps.get_children():
+			if c.get_data().name == key:
+				c.queue_free()
+				found = true
+				break
+		if found != true:
+			printerr("Unable to update UI during app status poll")
+	
+	print("Finished polling app status")
+
 ###############################################################################
 # Private functions                                                           #
 ###############################################################################
@@ -130,6 +167,8 @@ func _add_app_info(app_config: AppConfig) -> void:
 	bap.file_path.text = app_config.path
 	for arg in app_config.args:
 		bap.add_arg(arg)
+	
+	app_info.check_box.connect("toggled", self, "_on_check_box_toggled")
 
 ###############################################################################
 # Public functions                                                            #

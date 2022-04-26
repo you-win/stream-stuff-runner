@@ -118,6 +118,7 @@ _global_script_class_icons={
 
 config/name="Stream Stuff Runner"
 run/main_scene="res://main.tscn"
+run/low_processor_mode=true
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 

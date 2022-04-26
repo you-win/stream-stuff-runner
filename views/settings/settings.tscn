@@ -1,0 +1,134 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://views/settings/settings.gd" type="Script" id=1]
+
+[node name="Settings" type="ScrollContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="List" type="VBoxContainer" parent="."]
+margin_right = 1600.0
+margin_bottom = 900.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DefaultSearchPath" type="HBoxContainer" parent="List"]
+margin_right = 1600.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="List/DefaultSearchPath"]
+margin_top = 5.0
+margin_right = 798.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Default search path"
+autowrap = true
+
+[node name="LineEdit" type="LineEdit" parent="List/DefaultSearchPath"]
+margin_left = 802.0
+margin_right = 1600.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="WindowSize" type="HBoxContainer" parent="List"]
+margin_top = 28.0
+margin_right = 1600.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="List/WindowSize"]
+margin_top = 19.0
+margin_right = 798.0
+margin_bottom = 33.0
+size_flags_horizontal = 3
+text = "Window size"
+autowrap = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="List/WindowSize"]
+margin_left = 802.0
+margin_right = 1600.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
+[node name="X" type="HBoxContainer" parent="List/WindowSize/VBoxContainer"]
+margin_right = 798.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="List/WindowSize/VBoxContainer/X"]
+margin_top = 5.0
+margin_right = 397.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "X"
+
+[node name="LineEdit" type="LineEdit" parent="List/WindowSize/VBoxContainer/X"]
+margin_left = 401.0
+margin_right = 798.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Y" type="HBoxContainer" parent="List/WindowSize/VBoxContainer"]
+margin_top = 28.0
+margin_right = 798.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="List/WindowSize/VBoxContainer/Y"]
+margin_top = 5.0
+margin_right = 397.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Y"
+
+[node name="LineEdit" type="LineEdit" parent="List/WindowSize/VBoxContainer/Y"]
+margin_left = 401.0
+margin_right = 798.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="AppStatusPollTime" type="HBoxContainer" parent="List"]
+margin_top = 84.0
+margin_right = 1600.0
+margin_bottom = 108.0
+
+[node name="Label" type="Label" parent="List/AppStatusPollTime"]
+margin_top = 5.0
+margin_right = 798.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "App status poll time (effective only on restart)"
+autowrap = true
+
+[node name="LineEdit" type="LineEdit" parent="List/AppStatusPollTime"]
+margin_left = 802.0
+margin_right = 1600.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ShowConfig" type="Button" parent="List"]
+margin_top = 112.0
+margin_right = 1600.0
+margin_bottom = 132.0
+size_flags_horizontal = 3
+text = "Open config directory"
+
+[node name="Restart" type="Button" parent="List"]
+margin_top = 880.0
+margin_right = 1600.0
+margin_bottom = 900.0
+size_flags_horizontal = 3
+size_flags_vertical = 10
+text = "Restart"
