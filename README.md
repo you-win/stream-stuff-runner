@@ -4,3 +4,4 @@
 
 A runner for random applications. Requires my [custom fork of Godot](https://github.com/you-win/godot) since `toml` is used for saving configs.
 
+![](promotional.png)
