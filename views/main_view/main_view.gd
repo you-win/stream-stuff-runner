@@ -17,6 +17,7 @@ var _checked_boxes: int = 0
 func _ready() -> void:
 	$GlobalActions/StartAll.connect("pressed", self, "_on_start_all")
 	$GlobalActions/StopAll.connect("pressed", self, "_on_stop_all")
+	$GlobalActions/RefreshStatus.connect("pressed", self, "_on_app_status_poll")
 	
 	$ScrollContainer/VBoxContainer/Actions/SelectAll.connect("pressed", self, "_on_select_all")
 	$ScrollContainer/VBoxContainer/Actions/DeselectAll.connect("pressed", self, "_on_deselect_all")
@@ -27,11 +28,6 @@ func _ready() -> void:
 
 	for arg in ConfigHandler.data().app_configs:
 		_add_app_info(arg)
-	
-	var poller := $AppStatusPoller as Timer
-	poller.wait_time = ConfigHandler.data().app_status_poll_time
-	poller.connect("timeout", self, "_on_app_status_poll")
-	poller.start()
 
 ###############################################################################
 # Connections                                                                 #
@@ -122,15 +118,15 @@ func _on_app_status_poll() -> void:
 	for pid_key in pids.keys():
 		if not OSHandler.pid_exists(pids[pid_key]):
 			printerr("%s is no longer running but it was expected to still be alive" % pid_key)
-			non_existent_pids[pid_key] = (pids[pid_key])
+			non_existent_pids[pid_key] = pids[pid_key]
 	
 	for key in non_existent_pids.keys():
-		AppHandler.STATE.pids.erase(non_existent_pids[key])
+		AppHandler.STATE.pids.erase(key)
 		
 		var found := false
 		for c in registered_apps.get_children():
 			if c.get_data().name == key:
-				c.queue_free()
+				c.set_running(false)
 				found = true
 				break
 		if found != true:

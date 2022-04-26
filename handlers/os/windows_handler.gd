@@ -72,24 +72,26 @@ static func find_process(search_type: String, value: String) -> Array:
 		printerr("Unexpected output from find_process OS call %s" % str(output))
 		return r
 	
-	var split_output: PoolStringArray = output[0].split("\n", false)
+	# We must trim out commas since Windows inserts commas into the memory usage field
+	# UGHHHH
+	var split_output: PoolStringArray = output[0].replace(",", "").split("\n", false)
 	if split_output.size() < 2:
 		printerr("Unexpected split output from find_process OS call %s" % str(split_output))
 		return r
 	
-	var columns: PoolStringArray = split_output[0].split(",")
+	var columns: PoolStringArray = split_output[0].trim_prefix("\"").trim_suffix("\"").split("\"\"")
 	if columns.size() != TASKLIST_COLUMNS.size():
 		printerr("Unexpected amount of columns for find_process")
 		return r
 	
 	for i in columns.size():
 		if columns[i].to_lower() != TASKLIST_COLUMNS[i].to_lower():
-			printerr("Column name %s doesn't match expected)" % columns[i])
+			printerr("Column name %s doesn't match expected %s)" % [columns[i], TASKLIST_COLUMNS[i]])
 			return r
 	
 	var counter: int = 1
 	while counter < split_output.size():
-		var line: PoolStringArray = split_output[counter].split(",")
+		var line: PoolStringArray = split_output[counter].trim_prefix("\"").trim_suffix("\"").split("\"\"")
 		var process_info := {}
 		for i in line.size():
 			process_info[TASKLIST_COLUMNS[i]] = line[i]

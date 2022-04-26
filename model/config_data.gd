@@ -8,7 +8,6 @@ var app_configs := []
 var default_search_path := ProjectSettings.globalize_path("user://")
 var window_size_x: float = ProjectSettings.get_setting("display/window/size/width")
 var window_size_y: float = ProjectSettings.get_setting("display/window/size/height")
-var app_status_poll_time: float = 600.0
 
 ###############################################################################
 # Builtin functions                                                           #

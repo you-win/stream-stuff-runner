@@ -96,32 +96,10 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="AppStatusPollTime" type="HBoxContainer" parent="List"]
+[node name="ShowConfig" type="Button" parent="List"]
 margin_top = 84.0
 margin_right = 1600.0
-margin_bottom = 108.0
-
-[node name="Label" type="Label" parent="List/AppStatusPollTime"]
-margin_top = 5.0
-margin_right = 798.0
-margin_bottom = 19.0
-size_flags_horizontal = 3
-text = "App status poll time (effective only on restart)"
-autowrap = true
-
-[node name="LineEdit" type="LineEdit" parent="List/AppStatusPollTime"]
-margin_left = 802.0
-margin_right = 1600.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="ShowConfig" type="Button" parent="List"]
-margin_top = 112.0
-margin_right = 1600.0
-margin_bottom = 132.0
+margin_bottom = 104.0
 size_flags_horizontal = 3
 text = "Open config directory"
 
